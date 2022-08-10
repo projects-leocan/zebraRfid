@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89426fbb-c635-46d5-9cf7-f0ba1ad6221c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/hone/zebra_rfid/Base.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/hone/zebra_rfid/Base.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/hone/zebra_rfid/RFIDHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/hone/zebra_rfid/RFIDHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/hone/zebra_rfid/ZebraRfidPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/hone/zebra_rfid/ZebraRfidPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/base.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/base.g.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/zebra_rfid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zebra_rfid.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zebra_rfid.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zebra_rfid.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
