@@ -32,8 +32,8 @@ import com.zebra.rfid.api3.TriggerInfo;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
+//import java.util.Map;
+//import java.util.function.Function;
 
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodChannel.Result;
@@ -50,7 +50,7 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
     private static RFIDReader reader;
     private int MAX_POWER = 270;
     private IEventHandler eventHandler = new IEventHandler();
-    private Function<String, Map<String, Object>> _emit;
+    //    private Function<String, Map<String, Object>> _emit;
     private EventChannel.EventSink sink = null;
 
 
@@ -68,10 +68,9 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
 
     RFIDHandler(Context _context) {
         context = _context;
-
     }
 
-   public void setEventSink(EventChannel.EventSink _sink){
+    public void setEventSink(EventChannel.EventSink _sink){
         sink = _sink;
     }
 
@@ -101,34 +100,30 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
         }
     }
 
-
     @SuppressLint("StaticFieldLeak")
     public void AutoConnectDevice(final Result result) {
         AutoConnectDeviceTask = new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
-                        Log.d(TAG, "CreateInstanceTask");
-                        try {
-
-                            if (readerDevice == null) {
-                                ArrayList<ReaderDevice> readersListArray = readers.GetAvailableRFIDReaderList();
-                                if (readersListArray.size() > 0) {
-                                    readerDevice = readersListArray.get(0);
-                                    reader = readerDevice.getRFIDReader();
-                                } else {
-                                    return "没有检查到可连接设备";
-                                }
-                            }
+                Log.d(TAG, "CreateInstanceTask");
+                try {
+                    if (readerDevice == null) {
+                        ArrayList<ReaderDevice> readersListArray = readers.GetAvailableRFIDReaderList();
+                        if (readersListArray.size() > 0) {
+                            readerDevice = readersListArray.get(0);
+                            reader = readerDevice.getRFIDReader();
+                        } else {
+                            return "No connectable device detected";
+                        }
+                    }
 
                     if (reader != null && !reader.isConnected() && !this.isCancelled()) {
                         reader.connect();
                         ConfigureReader();
                     }
-
                 } catch (InvalidUsageException ex) {
                     Log.d(TAG, "InvalidUsageException");
                     return ex.getMessage();
-
 //                    exceptionIN = ex;
                 } catch (OperationFailureException e) {
                     String details = e.getStatusDescription();
@@ -141,7 +136,7 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
 
             @Override
             protected void onPostExecute(String error) {
-                  Base.ConnectionStatus status=Base.ConnectionStatus.ConnectionRealy;
+                Base.ConnectionStatus status = Base.ConnectionStatus.ConnectionRealy;
                 super.onPostExecute(error);
                 if (error != null) {
                     emit(Base.RfidEngineEvents.Error, transitionEntity(Base.ErrorResult.error(error)));
@@ -157,10 +152,7 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
                 super.onCancelled();
                 AutoConnectDeviceTask = null;
             }
-
         }.execute();
-
-
     }
 
     private boolean isReaderConnected() {
@@ -214,8 +206,8 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
         }
     }
 
-    ///获取读取器信息
-    public   ArrayList<ReaderDevice> getReadersList() {
+    ///Get reader information
+    public ArrayList<ReaderDevice> getReadersList() {
         ArrayList<ReaderDevice> readersListArray=new  ArrayList<ReaderDevice>();
         try {
             if(readers!=null) {
@@ -234,7 +226,6 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
         public void eventReadNotify(RfidReadEvents rfidReadEvents) {
             // Recommended to use new method getReadTagsEx for better performance in case of large tag population
             TagData[] myTags = reader.Actions.getReadTags(100);
-
 
             if (myTags != null) {
                 ArrayList<HashMap<String, Object>> datas= new ArrayList<>();
@@ -296,8 +287,6 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
     }
 
 
-
-
     public void handleTriggerPress(boolean pressed) {
         if (pressed) {
             performInventory();
@@ -342,12 +331,12 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
     @Override
     public void RFIDReaderDisappeared(ReaderDevice readerDevice) {
         Log.d(TAG, "RFIDReaderDisappeared " + readerDevice.getName());
-//        if (readerDevice.getName().equals(reader.getHostName()))
-//            disconnect();
+        /*if (readerDevice.getName().equals(reader.getHostName()))
+            disconnect();*/
         dispose();
     }
 
-    private  class AsyncDataNotify extends AsyncTask<ArrayList<HashMap<String, Object>>, Void, Void> {
+    private class AsyncDataNotify extends AsyncTask<ArrayList<HashMap<String, Object>>, Void, Void> {
         @Override
         protected Void doInBackground(ArrayList<HashMap<String, Object>>... params) {
             HashMap<String,Object> hashMap=new HashMap<>();
@@ -357,13 +346,12 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
         }
     }
 
-
     //实体类转HashMap
     public static HashMap<String, Object> transitionEntity(Object onClass) {
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
         Field[] fields = onClass.getClass().getDeclaredFields();
         for (Field field : fields) {
-            //反射时让私有变量变成可访问
+            //Make private variables accessible during reflection
             field.setAccessible(true);
             try {
                 hashMap.put(field.getName(), field.get(onClass));

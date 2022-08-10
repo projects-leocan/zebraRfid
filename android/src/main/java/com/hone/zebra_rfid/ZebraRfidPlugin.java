@@ -38,7 +38,6 @@ public class ZebraRfidPlugin implements FlutterPlugin, MethodCallHandler, Stream
         channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "com.hone.zebraRfid/plugin");
         channel.setMethodCallHandler(this);
 
-
         eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), "com.hone.zebraRfid/event_channel");
         eventChannel.setStreamHandler(this);
     }
@@ -66,8 +65,8 @@ public class ZebraRfidPlugin implements FlutterPlugin, MethodCallHandler, Stream
                 result.success(null);
                 break;
             case "write":
-
                 break;
+
             default:
                 result.notImplemented();
         }
@@ -79,21 +78,16 @@ public class ZebraRfidPlugin implements FlutterPlugin, MethodCallHandler, Stream
         eventChannel.setStreamHandler(null);
     }
 
-
     @Override
     public void onListen(Object arguments, EventChannel.EventSink events) {
-        Log.w(TAG, "adding listener");
+        Log.w(TAG, "Adding listener");
         sink = events;
         rfidHandler.setEventSink(sink);
     }
 
     @Override
     public void onCancel(Object arguments) {
-        Log.w(TAG, "cancelling listener");
+        Log.w(TAG, "Cancelling listener");
         sink = null;
     }
-
-
-
-
 }

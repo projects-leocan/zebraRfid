@@ -6,18 +6,17 @@ typedef ReadRfidCallback = void Function(List<RfidData> datas);
 typedef ConnectionStatusCallback = void Function(ReaderConnectionStatus status);
 
 class ZebraEngineEventHandler {
-  ZebraEngineEventHandler(
-      {this.readRfidCallback,
-      this.errorCallback,
-      this.connectionStatusCallback});
+  ZebraEngineEventHandler({
+    required this.readRfidCallback,
+    required this.errorCallback,
+    required this.connectionStatusCallback
+  });
 
-  ///读取rfid标签回调
+  ///Read rfid tag callback
   ReadRfidCallback readRfidCallback;
-
-  ///连接状态
+  ///Connection Status
   ConnectionStatusCallback connectionStatusCallback;
-
-  ///异常错误回调
+  ///Exception error callback
   ErrorCallback errorCallback;
 
   // ignore: public_member_api_docs
@@ -29,7 +28,7 @@ class ZebraEngineEventHandler {
         for (var i = 0; i < rfidDatas.length; i++) {
           list.add(RfidData.fromJson(Map<String, dynamic>.from(rfidDatas[i])));
         }
-        readRfidCallback?.call(list);
+        readRfidCallback.call(list);
         break;
       case 'Error':
         var ss = ErrorResult.fromJson(map);
@@ -45,48 +44,42 @@ class ZebraEngineEventHandler {
 }
 
 enum ReaderConnectionStatus {
-  ///未连接
+  ///Not connected
   UnConnection,
-
-  ///连接完成
+  ///Connection complete
   ConnectionRealy,
-
-  ///连接出错
+  ///Connection error
   ConnectionError,
 }
 
-///标签数据
+///Tag data
 @JsonSerializable()
 class RfidData {
-  RfidData();
-
-  ///标签id
+  RfidData({
+    required this.tagID,
+    required this.antennaID,
+    required this.peakRSSI,
+    required this.relativeDistance,
+    this.count = 0,
+    required this.memoryBankData,
+    required this.lockData,
+    required this.allocatedSize
+  });
   String tagID;
-
   int antennaID;
-  //信号峰值
+  ///Signal peak
   int peakRSSI;
-
   // public String tagDetails;
-  ///操作状态
   // ACCESS_OPERATION_STATUS opStatus;
-
-  ///相对距离
   int relativeDistance;
-
-  ///识别次数
-  int count = 0;
-
-  ///存储数据
+  int count;
+  ///Storing data
   String memoryBankData;
-
-  ///永久锁定数据
+  ///Permanently lock data
   String lockData;
-
-  ///分配大小
   int allocatedSize;
 
-  factory RfidData.fromJson(Map<dynamic, dynamic> json) =>
+  factory RfidData.fromJson(Map<String, dynamic> json) =>
       _$RfidDataFromJson(json);
   Map<String, dynamic> toJson() => _$RfidDataToJson(this);
 }
